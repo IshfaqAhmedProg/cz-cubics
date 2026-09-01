@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "cli-truncate": "^1.0.0",
-    "cz-cubics": "link:",
     "find-up": "^5.0.0",
     "fuse.js": "^3.4.5",
     "inquirer-autocomplete-prompt": "^0.12.0",
