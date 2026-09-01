@@ -2,9 +2,11 @@
   "name": "cz-cubics",
   "version": "0.0.2",
   "description": "A customizable Commitizen adapter",
-  "exports": {
-    ".": {}
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IshfaqAhmedProg/cz-cubics"
   },
+  "main": "./index.js",
   "files": [
     "dist"
   ],
