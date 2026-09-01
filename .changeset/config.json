@@ -6,7 +6,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "https://github.com/IshfaqAhmedProg/cz-cubics"
+      "repo": "IshfaqAhmedProg/cz-cubics"
     }
   ],
   "commit": false,
