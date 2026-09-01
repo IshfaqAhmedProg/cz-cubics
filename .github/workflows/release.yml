@@ -5,35 +5,60 @@ on:
     branches:
       - main
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+# recommended: reset permissions and explicitly specify for each job
+permissions: {}
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
+  # Checks whether there are pending changesets and decides what this run should do:
+  # "version"   -> open/update the version-bump PR
+  # "publish"   -> no pending changesets, packages are ready to publish
+  # "none"      -> nothing to do
+  select-mode:
     runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.select-mode.outputs.mode }}
+      publish-plan-artifact-id: ${{ steps.select-mode.outputs.publish-plan-artifact-id }}
+    permissions:
+      contents: read # to check out repo (actions/checkout)
     steps:
-      - name: Checkout Repo
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup toolchain
+        uses: ./.github/actions/setup
+        with:
+          package-manager-cache: "true"
+
+      - name: Select Changesets mode
+        id: select-mode
+        uses: changesets/action/select-mode@v2.1.1
+
+  # Runs only when pending changesets exist. Bumps package.json + CHANGELOG,
+  # then opens or updates the "Version Packages" PR. No publishing happens here.
+  version:
+    if: needs.select-mode.outputs.mode == 'version'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to commit version changes
+      pull-requests: write # to create the version PR
+    steps:
+      - name: Check out repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # needed so changesets can diff against baseBranch
+          persist-credentials: false
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4 # reads version from the packageManager field in package.json
+      - name: Setup toolchain
+        uses: ./.github/actions/setup
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          registry-url: "https://registry.npmjs.org"
-          cache: pnpm
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
+      # Computes the version this run would bump to, so it can be embedded
+      # in the PR title/commit message below.
       - name: Determine pending release version
         id: get-version
         run: |
@@ -46,33 +71,68 @@ jobs:
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
+      # Bumps versions, updates CHANGELOG.md, and opens/updates the version PR.
+      - name: Version packages
+        uses: changesets/action/version@v2.1.1
+        with:
+          pr-title: "✅ release: Version ${{ steps.get-version.outputs.version }}"
+          commit-message: "🐳 chore(release): V${{ steps.get-version.outputs.version }}"
+
+  # Runs only when there are no pending changesets, meaning the version PR
+  # was just merged and packages are ready to go out. Builds tarballs
+  # ahead of time so the publish job doesn't need write/build permissions.
+  pack:
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    outputs:
+      pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup toolchain
+        uses: ./.github/actions/setup
+
+      # Packs the packages selected by select-mode into publishable tarballs.
+      - name: Pack packages
+        id: pack
+        uses: changesets/action/pack@v2.1.1
+        with:
+          publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
+
+  # The only job with id-token: write, since it's the only one that needs
+  # OIDC to publish via npm trusted publishing. Publishes the tarballs
+  # built by pack, then creates the git tag and GitHub release.
+  publish:
+    needs: pack
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to create GitHub releases and tags
+      id-token: write # for OIDC trusted publishing
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup toolchain
+        uses: ./.github/actions/setup
+        with:
+          registry-url: "https://registry.npmjs.org"
+
+      # npm CLI must be >=11.5.1 for trusted publishing (OIDC); the bundled
+      # version on the runner is older, so it's upgraded here.
       - name: Update npm for OIDC trusted publishing
         run: npm install -g npm@11
 
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
+      # Publishes the packed tarballs to npm via OIDC, then tags the repo
+      # and creates the GitHub release for the published version.
+      - name: Publish packages
+        uses: changesets/action/publish@v2.1.1
         with:
-          publish: pnpm run release
-          title: "✅ release: Version ${{ steps.get-version.outputs.version }}"
-          commit: "🐳 chore(release): V${{ steps.get-version.outputs.version }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Ensure tags are pushed
-        if: steps.changesets.outputs.published == 'true'
-        run: git push origin --tags
-
-      - name: Ensure GitHub Release exists
-        if: steps.changesets.outputs.published == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          for pkg in $(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -c '.[]'); do
-            NAME=$(echo "$pkg" | jq -r '.name')
-            VERSION=$(echo "$pkg" | jq -r '.version')
-            TAG="${NAME}@${VERSION}"
-            if ! gh release view "$TAG" >/dev/null 2>&1; then
-              gh release create "$TAG" --title "$TAG" --generate-notes
-            fi
-          done
+          pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}

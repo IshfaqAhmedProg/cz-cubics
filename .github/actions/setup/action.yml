@@ -1,0 +1,30 @@
+name: Setup pnpm + Node + Install
+description: Shared checkout-adjacent setup steps (pnpm, Node, install) used across the release jobs.
+
+inputs:
+  registry-url:
+    description: npm registry URL to configure (only needed by jobs that publish)
+    required: false
+    default: ""
+  package-manager-cache:
+    description: whether actions/setup-node should cache the package manager
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4 # reads version from the packageManager field in package.json
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 22
+        registry-url: ${{ inputs.registry-url }}
+        cache: ${{ inputs.package-manager-cache == 'true' && 'pnpm' || '' }}
+        package-manager-cache: ${{ inputs.package-manager-cache }}
+
+    - name: Install Dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
