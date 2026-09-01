@@ -1,6 +1,6 @@
 {
   "name": "cz-cubics",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A customizable Commitizen adapter",
   "exports": {
     ".": {}
@@ -32,6 +32,8 @@
     "wrap-ansi": "^7.0.0"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^1.0.0",
+    "@changesets/cli": "^3.0.1",
     "@types/inquirer": "^9.0.10",
     "@types/node": "^26.4.0",
     "commitizen": "^4.3.2",
