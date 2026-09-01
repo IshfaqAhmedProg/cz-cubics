@@ -21,22 +21,23 @@ jobs:
         with:
           fetch-depth: 0 # needed so changesets can diff against baseBranch
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4 # reads version from the packageManager field in package.json
+
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
           registry-url: "https://registry.npmjs.org"
+          cache: pnpm
 
       - name: Install Dependencies
-        run: npm ci
-
-      - name: Update npm for OIDC support
-        run: npm install -g npm@latest
+        run: pnpm install --frozen-lockfile
 
       - name: Determine pending release version
         id: get-version
         run: |
-          npx changeset status --output=release.json 2>/dev/null || true
+          pnpm changeset status --output=release.json 2>/dev/null || true
           if [ -f release.json ]; then
             VERSION=$(jq -r '.releases[0].newVersion // empty' release.json)
             rm release.json
@@ -49,7 +50,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: npm run release
+          publish: pnpm run release
           commit: "✅ release: Version ${{ steps.get-version.outputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
