@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.3
+
+### Patch Changes
+
+- [`a3e90a1`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/a3e90a1b615c9776e728b31bb9993242de0ef57e) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Checking release pipeline
+
 ## 0.0.2
 
 ### Patch Changes
