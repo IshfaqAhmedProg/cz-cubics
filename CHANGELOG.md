@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.2
+
+### Patch Changes
+
+- [`886b51e`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/886b51e962746c0d2b9c341cbaef9332901f1ecd) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Checking release.yml
+
 ## 0.0.1
 
 ### Patch Changes
