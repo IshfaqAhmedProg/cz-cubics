@@ -54,8 +54,8 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm run release
-          commit: "chore(release): v${{ steps.get-version.outputs.version }}"
-          title: "chore(release): v${{ steps.get-version.outputs.version }}"
+          title: "✅ release: Version ${{ steps.get-version.outputs.version }}"
+          commit: "🐳 chore(release): V${{ steps.get-version.outputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
