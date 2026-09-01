@@ -58,10 +58,5 @@
     "emoji": "↩️",
     "description": "Reverts a previous commit",
     "name": "revert"
-  },
-  {
-    "emoji": "✅",
-    "description": "For release",
-    "name": "release"
   }
 ]
