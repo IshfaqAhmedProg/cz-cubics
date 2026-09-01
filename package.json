@@ -8,7 +8,9 @@
   },
   "main": "./index.js",
   "files": [
-    "dist"
+    "utils",
+    "config.type.js",
+    "defaultTypes.json"
   ],
   "keywords": [
     "commitizen",
@@ -17,9 +19,6 @@
   ],
   "license": "ISC",
   "packageManager": "pnpm@10.28.2",
-  "scripts": {
-    "release": "changeset publish"
-  },
   "peerDependencies": {
     "commitizen": "^4"
   },

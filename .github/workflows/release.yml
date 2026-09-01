@@ -136,3 +136,4 @@ jobs:
         uses: changesets/action/publish@v2.1.1
         with:
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
+          create-github-releases: true
