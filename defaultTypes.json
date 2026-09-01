@@ -1,0 +1,74 @@
+[
+  {
+    "emoji": "🎉",
+    "code": ":tada:",
+    "description": "Initial commit",
+    "name": "init"
+  },
+  {
+    "emoji": "✨",
+    "code": ":sparkles:",
+    "description": "A new feature",
+    "name": "feat"
+  },
+  {
+    "emoji": "🐞",
+    "code": ":beetle:",
+    "description": "A bug fix",
+    "name": "fix"
+  },
+  {
+    "emoji": "📃",
+    "code": ":page_with_curl:",
+    "description": "Documentation only changes",
+    "name": "docs"
+  },
+  {
+    "emoji": "🌈",
+    "code": ":rainbow:",
+    "description": "Changes that do not affect the meaning of the code",
+    "name": "style"
+  },
+  {
+    "emoji": "🦄",
+    "code": ":unicorn:",
+    "description": "A code change that neither fixes a bug nor adds a feature",
+    "name": "refactor"
+  },
+  {
+    "emoji": "🎈",
+    "code": ":balloon:",
+    "description": "A code change that improves performance",
+    "name": "perf"
+  },
+  {
+    "emoji": "🧪",
+    "code": ":test_tube:",
+    "description": "Adding missing or correcting existing tests",
+    "name": "test"
+  },
+  {
+    "emoji": "🔧",
+    "code": ":wrench:",
+    "description": "Changes that affect the build system or external dependencies",
+    "name": "build"
+  },
+  {
+    "emoji": "🐎",
+    "code": ":racehorse:",
+    "description": "Changes to CI configuration files and scripts",
+    "name": "ci"
+  },
+  {
+    "emoji": "🐳",
+    "code": ":whale:",
+    "description": "Other changes that don't modify source or test files",
+    "name": "chore"
+  },
+  {
+    "emoji": "↩️",
+    "code": ":leftwards_arrow_with_hook:",
+    "description": "Reverts a previous commit",
+    "name": "revert"
+  }
+]

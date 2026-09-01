@@ -1,0 +1,46 @@
+{
+  "name": "cz-cubics",
+  "version": "0.0.0",
+  "description": "A customizable Commitizen adapter",
+  "exports": {
+    ".": {}
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "commitizen",
+    "commitizen-adapter",
+    "cz"
+  ],
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.2",
+  "scripts": {
+    "build": "tsc",
+    "commit": "cz"
+  },
+  "peerDependencies": {
+    "commitizen": "^4"
+  },
+  "dependencies": {
+    "cli-truncate": "^1.0.0",
+    "cz-cubics": "link:",
+    "find-up": "^5.0.0",
+    "fuse.js": "^3.4.5",
+    "inquirer-autocomplete-prompt": "^0.12.0",
+    "inquirer-maxlength-input-prompt": "^1.0.1",
+    "pad": "^2.3.0",
+    "wrap-ansi": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.10",
+    "@types/node": "^26.4.0",
+    "commitizen": "^4.3.2",
+    "typescript": "^7.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./index.js"
+    }
+  }
+}
