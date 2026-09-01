@@ -25,13 +25,13 @@ async function loadConfigUpwards(filename) {
 
 /**
  * Prepares the config from czrc or package.json
- * @return {CZCubicsConfig}
+ * @return {Promise<CZCubicsConfig>}
+ * @private
  */
 async function getConfig() {
   const defaultHeadFormat = "{emoji} {type}{scope}: {subject}";
   const defaultConfig = {
     types,
-    symbol: false,
     skipQuestions: [""],
     subjectMaxLength: 100,
     conventional: false,
@@ -48,7 +48,7 @@ async function getConfig() {
   return config;
 }
 
-function getEmojiChoices({ types, symbol }) {
+function getEmojiChoices({ types }) {
   const maxNameLength = types.reduce(
     (maxLength, type) =>
       type.name.length > maxLength ? type.name.length : maxLength,
@@ -58,10 +58,9 @@ function getEmojiChoices({ types, symbol }) {
   return types.map((choice) => ({
     name: `${pad(choice.name, maxNameLength)}  ${choice.emoji}  ${choice.description}`,
     value: {
-      emoji: symbol ? `${choice.emoji} ` : choice.code,
+      emoji: `${choice.emoji} `,
       name: choice.name,
     },
-    code: choice.code,
   }));
 }
 
@@ -89,7 +88,7 @@ function createQuestions(config) {
     distance: 100,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: ["name", "code"],
+    keys: ["name"],
   });
 
   const questions = [
