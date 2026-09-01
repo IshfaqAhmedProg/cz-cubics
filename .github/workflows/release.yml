@@ -58,3 +58,21 @@ jobs:
           title: "chore(release): v${{ steps.get-version.outputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure tags are pushed
+        if: steps.changesets.outputs.published == 'true'
+        run: git push origin --tags
+
+      - name: Ensure GitHub Release exists
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for pkg in $(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -c '.[]'); do
+            NAME=$(echo "$pkg" | jq -r '.name')
+            VERSION=$(echo "$pkg" | jq -r '.version')
+            TAG="${NAME}@${VERSION}"
+            if ! gh release view "$TAG" >/dev/null 2>&1; then
+              gh release create "$TAG" --title "$TAG" --generate-notes
+            fi
+          done
