@@ -1,20 +1,32 @@
 const fs = require("fs");
 const util = require("util");
-const readFile = util.promisify(fs.readFile);
 const findUp = require("find-up");
+const { CZ_NAME, POSSIBLE_CONFIG_FILES } = require("./constants");
+
+const readFile = util.promisify(fs.readFile);
 
 /**
- * Loads the config from the nearest config file
+ * Loads the config from the nearest possible config file.
  */
-async function loadConfig(filename) {
-  const _filename = await findUp(filename);
-  try {
-    const text = await readFile(_filename, "utf8");
-    const obj = await JSON.parse(text);
-    return obj && obj.config && obj.config["cz-cubics"];
-  } catch {
-    return null;
+async function loadConfig() {
+  for (const filename of POSSIBLE_CONFIG_FILES) {
+    const filepath = await findUp(filename);
+    if (!filepath) {
+      continue;
+    }
+    try {
+      const text = await readFile(filepath, "utf8");
+      const obj = JSON.parse(text);
+      const config = obj && obj.config && obj.config[CZ_NAME];
+
+      if (config) {
+        return config;
+      }
+    } catch {
+      // Try the next possible config file.
+    }
   }
+  return {};
 }
 
 module.exports = loadConfig;
