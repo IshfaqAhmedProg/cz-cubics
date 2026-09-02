@@ -1,5 +1,13 @@
 # cz-cubics
 
+## 0.0.6
+
+### Patch Changes
+
+- [`49d0ae9`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/49d0ae9fb5a2563bc729c7517700051e4b159b0d) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Add commitlint and config validation
+  - Add commitlint to the project and exposed the commitlint config so users can use it
+  - Add validation for custom configs.
+
 ## 0.0.5
 
 ### Patch Changes
