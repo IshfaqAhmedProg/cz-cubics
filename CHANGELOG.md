@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.4
+
+### Patch Changes
+
+- [`7313f32`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/7313f32226019b4dcc8bccec9bb4b9e95efc0e9d) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Checking new release script
+
 ## 0.0.3
 
 ### Patch Changes
