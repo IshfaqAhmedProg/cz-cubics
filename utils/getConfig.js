@@ -18,7 +18,6 @@ const defaultConfig = {
  * @return {Promise<CZCubicsConfig>}
  */
 async function getConfig() {
-  /** @type {CZCubicsConfig} */
   const loadedConfig = await loadConfig();
   return {
     ...defaultConfig,

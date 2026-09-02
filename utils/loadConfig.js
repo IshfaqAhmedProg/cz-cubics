@@ -2,11 +2,13 @@ const fs = require("fs");
 const util = require("util");
 const findUp = require("find-up");
 const { CZ_NAME, POSSIBLE_CONFIG_FILES } = require("./constants");
+const validateConfig = require("./validateConfig");
 
 const readFile = util.promisify(fs.readFile);
 
 /**
  * Loads the config from the nearest possible config file.
+ * @returns {Promise<CZCubicsConfig|Object>}
  */
 async function loadConfig() {
   for (const filename of POSSIBLE_CONFIG_FILES) {
@@ -20,7 +22,7 @@ async function loadConfig() {
       const config = obj && obj.config && obj.config[CZ_NAME];
 
       if (config) {
-        return config;
+        return validateConfig(config);
       }
     } catch {
       // Try the next possible config file.
