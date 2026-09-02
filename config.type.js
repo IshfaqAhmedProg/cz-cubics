@@ -10,7 +10,7 @@
 
 /**
  * @typedef {Object} CZCubicsCommitType
- * @property {string} emoji  The emoji of the type of commit
+ * @property {string} [emoji=""]  The emoji of the type of commit
  * @property {string} description  The description of the type of commit
  * @property {string} name  The name of the type of commit
  */
