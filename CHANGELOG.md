@@ -1,5 +1,13 @@
 # cz-cubics
 
+## 0.0.5
+
+### Patch Changes
+
+- [`002e9dd`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/002e9ddfbd04ae209a52b1fe329fac945033a744) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - - Made the emoji render on the left of the type in the question choices as that matches more to the actual git commit message
+  
+  - Made the emoji field in types optional so they can be removed for particular types, to remove all emojis change the headFormat option to `{type}{scope}: {subject}`
+
 ## 0.0.4
 
 ### Patch Changes
