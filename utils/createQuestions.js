@@ -1,5 +1,5 @@
 const Fuse = require("fuse.js");
-const { getEmojiChoices } = require("./getEmojiChoices");
+const getTypeChoices = require("./getTypeChoices");
 
 /**
  * Create inquier.js questions object trying to read `types` and `scopes` from the current project
@@ -9,7 +9,7 @@ const { getEmojiChoices } = require("./getEmojiChoices");
  * @return {Array} Return an array of `inquier.js` questions
  */
 function createQuestions(config) {
-  const choices = getEmojiChoices(config);
+  const choices = getTypeChoices(config);
 
   const fuzzy = new Fuse(choices, {
     shouldSort: true,
