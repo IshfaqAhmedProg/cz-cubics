@@ -155,7 +155,7 @@ BREAKING CHANGE: <breakingBody>
 ```
 
 - **head** => built from `headFormat`, truncated to the terminal's column width.
-- **body** => the free-text body answer, wrapped to the terminal width.
+- **body** => the free-text body answer, wrapped to the terminal width. Newline can be added by using a pipe `|`
 - **breaking** => included only if a breaking change body was provided.
 - **footer** => issue references, formatted via `formatIssues`.
 
