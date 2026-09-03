@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.7
+
+### Patch Changes
+
+- [#9](https://github.com/IshfaqAhmedProg/cz-cubics/pull/9) [`003b372`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/003b37224ec5c0f1b86bedb12d731389f19ddc28) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Fix import for config not resolving correctly
+
 ## 0.0.6
 
 ### Patch Changes
