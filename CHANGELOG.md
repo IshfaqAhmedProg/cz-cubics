@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.8
+
+### Patch Changes
+
+- [`b3013ad`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/b3013adc79b5fbed6bb07a3aa7db9b3ed01bc29f) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Remove the patch added in V0.0.7
+
 ## 0.0.7
 
 ### Patch Changes
