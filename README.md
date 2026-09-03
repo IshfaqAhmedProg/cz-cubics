@@ -166,10 +166,9 @@ Empty sections are omitted; the result is trimmed of trailing whitespace.
 This package ships its own `commitlint.config.js`, which consumers can extend directly instead of duplicating rules:
 
 ```js
-// commitlint.config.js (in your project)
 /** @type {import("@commitlint/types").UserConfig} */
 module.exports = {
-  extends: ["cz-cubics/commitlint"],
+  extends: ["./node_modules/cz-cubics/commitlint.config.js"],
   // add or override rules here
 };
 ```
@@ -203,5 +202,6 @@ Make sure the hook file is executable (`chmod +x .husky/commit-msg`) and that `c
 MIT
 
 ## Special Thanks
+
 - [ngryman/cz-emoji](https://github.com/ngryman/cz-emoji): the core idea of emoji-based conventional commit types this adapter builds on.
 - [commitizen/cz-cli](https://github.com/commitizen/cz-cli): the adapter framework this package plugs into.

@@ -7,16 +7,11 @@
     "url": "https://github.com/IshfaqAhmedProg/cz-cubics"
   },
   "main": "./index.js",
-  "exports": {
-    ".": "./index.js",
-    "./commitlint": "./commitlint.js"
-  },
   "files": [
     "utils",
     "config.type.js",
     "defaultTypes.json",
-    "commitlint.config.js",
-    "commitlint.js"
+    "commitlint.config.js"
   ],
   "keywords": [
     "commitizen",
