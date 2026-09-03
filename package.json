@@ -9,13 +9,14 @@
   "main": "./index.js",
   "exports": {
     ".": "./index.js",
-    "./commitlint": "./commitlint.config.js"
+    "./commitlint": "./commitlint.js"
   },
   "files": [
     "utils",
     "config.type.js",
     "defaultTypes.json",
-    "commitlint.config.js"
+    "commitlint.config.js",
+    "commitlint.js"
   ],
   "keywords": [
     "commitizen",
