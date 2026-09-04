@@ -1,6 +1,6 @@
 /**
  * @typedef {Object} CZCubicsConfig
- * @property {CZCubicsCommitType} types  The types of the commit can be modified from the defaultTypes
+ * @property {CZCubicsCommitType[]} types  The types of the commit can be modified from the defaultTypes
  * @property {string[]} skipQuestions  You can skip the following questions: scope, body, issues, and breaking. The type and subject questions are mandatory.
  * @property {string[]} scopes  An Inquirer.js choices array containing predefined scopes to choose from.
  * @property {Object} questions  An object that contains overrides of the original questions

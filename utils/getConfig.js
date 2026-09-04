@@ -25,4 +25,17 @@ async function getConfig() {
   };
 }
 
+/**
+ * Prepares the config from czrc or package.json
+ * @return {CZCubicsConfig}
+ */
+function getConfigSync() {
+  const loadedConfig = loadConfig.sync();
+  return {
+    ...defaultConfig,
+    ...loadedConfig,
+  };
+}
+
 module.exports = getConfig;
+module.exports.sync = getConfigSync;
