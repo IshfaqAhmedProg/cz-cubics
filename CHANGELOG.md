@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.10
+
+### Patch Changes
+
+- [`92f9c69`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/92f9c6938565c6744119fad3466df5d48aea3d22) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Add helpUrl to point to the repo instead of default commitlint
+
 ## 0.0.9
 
 ### Patch Changes
