@@ -20,5 +20,7 @@ module.exports = {
     "header-start-emoji": [2, "always"],
     "header-has-emoji": [0, "always"],
   },
+  helpUrl:
+    "https://github.com/IshfaqAhmedProg/cz-cubics#commitlint-integration",
   plugins: [plugin],
 };
