@@ -29,7 +29,7 @@ function formatCommitMessage(answers, config) {
     .replace(/\s+/g, " ");
 
   const head = truncate(commitMessage, columns);
-  const body = wrap(answers.body || "", columns);
+  const body = wrap((answers.body || "").replace(/\s*\|\s*/g, "\n"), columns);
   const breaking =
     answers.breakingBody && answers.breakingBody.trim().length !== 0
       ? wrap(`BREAKING CHANGE: ${answers.breakingBody.trim()}`, columns)
