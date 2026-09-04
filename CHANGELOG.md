@@ -1,5 +1,14 @@
 # cz-cubics
 
+## 0.0.9
+
+### Patch Changes
+
+- [`5a12cc0`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/5a12cc01d5e45762ddbe6eacc814ab921223bc32) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Fixed issues
+  - pipe character '|' now creates a newline in body and breakingBody
+  - commitlint was allowing non formatted commits
+  - commitlint config now takes .czrc config or package.json config of cz-cubics into consideration
+
 ## 0.0.8
 
 ### Patch Changes
