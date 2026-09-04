@@ -32,7 +32,10 @@ function formatCommitMessage(answers, config) {
   const body = wrap((answers.body || "").replace(/\s*\|\s*/g, "\n"), columns);
   const breaking =
     answers.breakingBody && answers.breakingBody.trim().length !== 0
-      ? wrap(`BREAKING CHANGE: ${answers.breakingBody.trim()}`, columns)
+      ? wrap(
+          `BREAKING CHANGE: ${answers.breakingBody.replace(/\s*\|\s*/g, "\n").trim()}`,
+          columns,
+        )
       : "";
   const footer = formatIssues(answers.issues);
 
@@ -40,3 +43,4 @@ function formatCommitMessage(answers, config) {
 }
 
 module.exports = formatCommitMessage;
+
