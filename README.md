@@ -156,7 +156,7 @@ BREAKING CHANGE: <breakingBody>
 
 - **head** => built from `headFormat`, truncated to the terminal's column width.
 - **body** => the free-text body answer, wrapped to the terminal width. Newline can be added by using a pipe `|`
-- **breaking** => included only if a breaking change body was provided.
+- **breaking** => included only if a breaking change body was provided. Newline can be added by using a pipe `|`
 - **footer** => issue references, formatted via `formatIssues`.
 
 Empty sections are omitted; the result is trimmed of trailing whitespace.
@@ -175,13 +175,21 @@ module.exports = {
 
 It includes:
 
+- `type-empty`: never,
+- `subject-empty`: never,
 - `subject-case`: `sentence-case`, always enforced.
-- `subject-max-length`: `100`, always enforced.
-- A `parserPreset` with a `headerPattern` that accounts for the leading emoji in the header, so `type`, `scope`, and `subject` are still parsed correctly out of headers like `✨ feat(api): add endpoint`.
+- `subject-max-length`: `100`, always enforced, taken from your resolved `subjectMaxLength` config.
+- `type-enum`: restricted to the `name` of each entry in your resolved `types` config, so only your configured commit types pass.
+- `header-start-emoji`: always enforced the header must start with an [Extended_Pictographic](https://unicode.org/reports/tr51/) character (an emoji), matching the leading `{emoji} ` token in `headFormat`.
+- `header-has-emoji`: off by default (severity `0`) same emoji detection, but checks the entire header line rather than just the leading token. Enable it (severity `2`) with `"always"` if you want emoji allowed anywhere in the header rather than only at the start.
+- A `parserPreset` whose `headerPattern` and `headerCorrespondence` are **built dynamically from your resolved `headFormat`**, rather than hardcoded. This means:
+  - Changing `headFormat` in your config automatically changes what the linter parses and validates.
+  - Required tokens (`{type}`, `{subject}`) use a matching strategy that still lets the overall header parse successfully even when one of them is empty
+  - Optional tokens (`{emoji}`, `{scope}`) are correctly treated as absent when omitted, rather than requiring a placeholder value.
 
 ### Requirements
 
-`cz-cubics/commitlint` is a plain config object with no runtime dependency on any commitlint package itself. However, to actually lint commits you need `@commitlint/cli` (v19+) installed **in your own project**, since that's what reads and executes the config:
+`cz-cubics/commitlint.config.js` is a plain config object with no runtime dependency on any commitlint package itself. However, to actually lint commits you need `@commitlint/cli` installed **in your own project**, since that's what reads and executes the config:
 
 ```bash
 pnpm add -D @commitlint/cli
