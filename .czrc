@@ -1,3 +1,13 @@
 {
-  "path": "./dist/index.cjs"
+  "path": "./dist/index.cjs",
+  "config": {
+    "cz-cubics": {
+      "scopes": [
+        "changeset",
+        "readme",
+        "config",
+        "types"
+      ]
+    }
+  }
 }
