@@ -173,6 +173,16 @@ module.exports = {
 };
 ```
 
+when the `type` in `package.json` is `"module"` the cjs version can be used instead
+
+```js
+/** @type {import("@commitlint/types").UserConfig} */
+module.exports = {
+  extends: ["./node_modules/cz-cubics/commitlint.config.cjs"],
+  // add or override rules here
+};
+```
+
 It includes:
 
 - `type-empty`: never,
