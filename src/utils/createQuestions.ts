@@ -43,8 +43,8 @@ export default function createQuestions(
     const results = scopeFuzzy.search(query).map((result) => result.item);
 
     return Promise.resolve([
-      { name: `${query} (custom)`, value: query },
       ...results,
+      { name: `${query} (custom)`, value: query },
     ]);
   };
 
@@ -65,10 +65,7 @@ export default function createQuestions(
     {
       type: config.scopes ? "autocomplete" : "input",
       name: "scope",
-      message:
-        config.questions && config.questions.scope
-          ? config.questions.scope
-          : "Specify a scope:",
+      message: promptMessage("scope", "Specify a scope:"),
       source: config.scopes ? searchScopes : undefined,
       when: !config.skipQuestions.includes("scope"),
     },
