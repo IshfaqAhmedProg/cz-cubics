@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.12
+
+### Patch Changes
+
+- [#16](https://github.com/IshfaqAhmedProg/cz-cubics/pull/16) [`2a9d948`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/2a9d948af74507e2799ea8c0bb7db19919025e78) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Fix bug where search results come after custom
+
 ## 0.0.11
 
 ### Patch Changes
