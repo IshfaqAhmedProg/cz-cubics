@@ -1,5 +1,11 @@
 # cz-cubics
 
+## 0.0.11
+
+### Patch Changes
+
+- [#14](https://github.com/IshfaqAhmedProg/cz-cubics/pull/14) [`46aff4c`](https://github.com/IshfaqAhmedProg/cz-cubics/commit/46aff4cdc524a027c50476fe431b6fc7faa21ca5) Thanks [@IshfaqAhmedProg](https://github.com/IshfaqAhmedProg)! - Modified to use typescript instead of javascript.
+
 ## 0.0.10
 
 ### Patch Changes
