@@ -98,6 +98,10 @@ jobs:
       - name: Setup toolchain
         uses: ./.github/actions/setup
 
+      # Build dist/ so it's included in the packed tarballs
+      - name: Build
+        run: pnpm build
+
       # Packs the packages selected by select-mode into publishable tarballs.
       - name: Pack packages
         id: pack

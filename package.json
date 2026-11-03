@@ -6,13 +6,28 @@
     "type": "git",
     "url": "https://github.com/IshfaqAhmedProg/cz-cubics"
   },
-  "main": "./index.js",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    },
+    "./commitlint.config.js": {
+      "types": "./dist/commitlint.config.d.cts",
+      "default": "./dist/commitlint.config.cjs"
+    },
+    "./config.type": {
+      "types": "./dist/index.d.cts"
+    }
+  },
   "files": [
-    "utils",
-    "config.type.js",
-    "defaultTypes.json",
-    "commitlint.config.js"
+    "commitlint.config.js",
+    "dist"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "keywords": [
     "commitizen",
     "commitizen-adapter",
@@ -24,13 +39,12 @@
     "commitizen": "^4"
   },
   "dependencies": {
-    "cli-truncate": "^1.0.0",
-    "find-up": "^5.0.0",
-    "fuse.js": "^3.4.5",
-    "inquirer-autocomplete-prompt": "^0.12.0",
-    "inquirer-maxlength-input-prompt": "^1.0.1",
-    "pad": "^2.3.0",
-    "wrap-ansi": "^7.0.0"
+    "find-up": "^8.0.0",
+    "fuse.js": "^7.5.0",
+    "inquirer-autocomplete-prompt": "^2.0.1",
+    "inquirer-maxlength-input-prompt": "^1.0.2",
+    "pad": "^3.3.0",
+    "wrap-ansi": "^10.0.2"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.0",
@@ -41,9 +55,12 @@
     "@types/node": "^26.4.0",
     "commitizen": "^4.3.2",
     "husky": "^9.1.7",
+    "tsdown": "^0.23.0",
     "typescript": "^7.0.2"
   },
   "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky"
   }
 }
